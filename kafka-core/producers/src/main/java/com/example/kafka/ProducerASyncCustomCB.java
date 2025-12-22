@@ -1,5 +1,7 @@
 package com.example.kafka;
 
+import com.example.kafka.services.PropertiesService;
+import com.example.kafka.services.PropertiesServiceImpl;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -19,7 +21,7 @@ public class ProducerASyncCustomCB {
         //KafkaProducer configuration setting
         // null, "hello world"
 
-        LoadConfig configService = new ConfigService();
+        PropertiesService configService = new PropertiesServiceImpl();
         Properties props  = configService.LoadProperties();
 
         String bootstrapServers = props.getProperty("bootstrap.servers");

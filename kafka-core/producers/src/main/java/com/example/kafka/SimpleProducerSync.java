@@ -1,11 +1,12 @@
 package com.example.kafka;
 
+import com.example.kafka.services.PropertiesService;
+import com.example.kafka.services.PropertiesServiceImpl;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -17,7 +18,7 @@ public class SimpleProducerSync {
 
         //KafkaProducer configuration setting
         // null, "hello world"
-        LoadConfig configService = new ConfigService();
+        PropertiesService configService = new PropertiesServiceImpl();
         Properties props  = configService.LoadProperties();
 
         String bootstrapServers = props.getProperty("bootstrap.servers");
