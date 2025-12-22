@@ -10,7 +10,7 @@ public class ConfigService implements LoadConfig {
     public final Logger logger = LoggerFactory.getLogger(SimpleProducerSync.class.getName());
 
     @Override
-    public Properties getProperties() {
+    public Properties LoadProperties() {
         Properties props  = new Properties();
 
         // application.properties 파일 읽기

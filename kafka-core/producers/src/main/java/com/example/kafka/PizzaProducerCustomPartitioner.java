@@ -99,7 +99,7 @@ public class PizzaProducerCustomPartitioner {
         // null, "hello world"
 
         LoadConfig configService = new ConfigService();
-        Properties props  = configService.getProperties();
+        Properties props  = configService.LoadProperties();
 
         String bootstrapServers = props.getProperty("bootstrap.servers");
         //bootstrap.servers, key.serializer.class, value.serializer.class
