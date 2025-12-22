@@ -18,10 +18,12 @@ public class ProducerASyncWithKey {
         //KafkaProducer configuration setting
         // null, "hello world"
 
-        Properties props  = new Properties();
+        LoadConfig configService = new ConfigService();
+        Properties props  = configService.getProperties();
+
+        String bootstrapServers = props.getProperty("bootstrap.servers");
         //bootstrap.servers, key.serializer.class, value.serializer.class
-        //props.setProperty("bootstrap.servers", "192.168.56.101:9092");
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 

@@ -1,11 +1,11 @@
 package com.example.kafka;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
+//import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class PizzaProducerCustomPartitioner {
         int iterSeq = 0;
         long seed = 2022;
         Random random = new Random(seed);
-        Faker faker = Faker.instance(random);
+        Faker faker = new Faker(random);
 
         long startTime = System.currentTimeMillis();
 
@@ -98,8 +98,12 @@ public class PizzaProducerCustomPartitioner {
         //KafkaProducer configuration setting
         // null, "hello world"
 
-        Properties props  = new Properties();
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        LoadConfig configService = new ConfigService();
+        Properties props  = configService.getProperties();
+
+        String bootstrapServers = props.getProperty("bootstrap.servers");
+        //bootstrap.servers, key.serializer.class, value.serializer.class
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty("specialKey", "P001");

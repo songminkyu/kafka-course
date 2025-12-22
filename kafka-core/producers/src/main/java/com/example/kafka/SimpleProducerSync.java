@@ -5,22 +5,24 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 public class SimpleProducerSync {
+
     public static final Logger logger = LoggerFactory.getLogger(SimpleProducerSync.class.getName());
     public static void main(String[] args) {
-
         String topicName = "simple-topic";
 
         //KafkaProducer configuration setting
         // null, "hello world"
+        LoadConfig configService = new ConfigService();
+        Properties props  = configService.getProperties();
 
-        Properties props  = new Properties();
+        String bootstrapServers = props.getProperty("bootstrap.servers");
         //bootstrap.servers, key.serializer.class, value.serializer.class
-        //props.setProperty("bootstrap.servers", "192.168.56.101:9092");
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 

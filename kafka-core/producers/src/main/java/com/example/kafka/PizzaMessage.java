@@ -1,6 +1,6 @@
 package com.example.kafka;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -57,7 +57,7 @@ public class PizzaMessage {
         // seed값을 고정하여 Random 객체와 Faker 객체를 생성.
         long seed = 2022;
         Random random = new Random(seed);
-        Faker faker = Faker.instance(random);
+        Faker faker = new Faker(random);
 
         for(int i=0; i < 60; i++) {
             HashMap<String, String> message = pizzaMessage.produce_msg(faker, random, i);
