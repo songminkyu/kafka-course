@@ -1,6 +1,4 @@
-package com.example.kafka.multithread;// ============================================================================
-// 패턴 1: One Consumer Per Thread (간단하고 안전한 방식)
-// ============================================================================
+package com.example.kafka.multithread;
 
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.errors.WakeupException;
@@ -10,6 +8,9 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// ============================================================================
+// 패턴 1: One Consumer Per Thread (간단하고 안전한 방식)
+// ============================================================================
 public class MultiThreadConsumerPattern1 {
     
     // 각 스레드가 독립적인 Consumer 인스턴스를 가짐
