@@ -108,7 +108,7 @@ public class PizzaProducerCustomPartitioner {
         props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.setProperty("specialKey", "P001");
+        props.setProperty("custom.specialKey", "P001");
         // partitioner.class에 CustomPartitioner 클래스를 등록함
         //props.setProperty("partitioner.class", "com.example.kafka.CustomPartitioner");
         props.setProperty(ProducerConfig.PARTITIONER_CLASS_CONFIG, "com.example.kafka.CustomPartitioner");
@@ -117,7 +117,7 @@ public class PizzaProducerCustomPartitioner {
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
 
         sendPizzaMessage(kafkaProducer, topicName,
-                -1, 100, 0, 0, false);
+                -1, 100, 0, 0, true);
 
         kafkaProducer.close();
 

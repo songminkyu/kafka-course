@@ -2,14 +2,13 @@ package com.example.kafka;
 
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.clients.producer.RoundRobinPartitioner;
-//import org.apache.kafka.clients.producer.internals.BuiltInPartitioner;
+import org.apache.kafka.clients.producer.internals.BuiltInPartitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.InvalidRecordException;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.List;
 import java.util.Map;
@@ -18,11 +17,13 @@ public class CustomPartitioner implements Partitioner {
     public static final Logger logger = LoggerFactory.getLogger(CustomPartitioner.class.getName());
     //private final RoundRobinPartitioner stickyPartitionCache = new RoundRobinPartitioner();
     //private final BuiltInPartitioner stickyPartitionCache = new BuiltInPartitioner();
+    //private final StickyPartitionCache stickyPartitionCache = new StickyPartitionCache();
     private String specialKeyName;
 
     @Override
     public void configure(Map<String, ?> configs) {
         specialKeyName = configs.get("custom.specialKey").toString();
+        logger.info("specialKeyName:{}", specialKeyName);
     }
 
     @Override
@@ -33,6 +34,7 @@ public class CustomPartitioner implements Partitioner {
         int partitionIndex = 0;
 
         if (keyBytes == null) {
+            //return stickyPartitionCache.partition(topic, cluster);
             //return stickyPartitionCache.partition(topic,key,keyBytes, value,valueBytes,cluster);
             throw new InvalidRecordException("key should not be null");
         }
