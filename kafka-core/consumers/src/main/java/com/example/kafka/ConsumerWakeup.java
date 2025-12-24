@@ -18,7 +18,7 @@ public class ConsumerWakeup {
 
     public static void main(String[] args) {
 
-        String topicName = "simple-topic"; //pizza-topic or simple-topic
+        String topicName = "pizza-topic"; //pizza-topic or simple-topic
 
         PropertiesService configService = new PropertiesServiceImpl();
         Properties props  = configService.LoadProperties();

@@ -358,3 +358,16 @@ sleep 10
 echo "######## `date` ########"
 ls -lia
 done
+
+
+#############################################################
+#  일괄적으로 컨슈머 그룹 제거 방법                   #
+#############################################################
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --list | \
+grep "console-consumer-" | \
+xargs -I {} kafka-consumer-groups --bootstrap-server localhost:9092 --delete --group {}
+
+# 주의: 모든 컨슈머 그룹이 삭제됩니다.
+kafka-consumer-groups --bootstrap-server localhost:9092 --list | \
+xargs -I {} kafka-consumer-groups --bootstrap-server localhost:9092 --delete --group {}
