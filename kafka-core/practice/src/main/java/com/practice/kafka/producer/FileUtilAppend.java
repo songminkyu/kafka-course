@@ -1,6 +1,6 @@
 package com.practice.kafka.producer;
 
-import com.github.javafaker.Faker;
+import net.datafaker.Faker;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -82,7 +82,7 @@ public class FileUtilAppend {
         // seed값을 고정하여 Random 객체와 Faker 객체를 생성.
         long seed = 2022;
         Random random = new Random(seed);
-        Faker faker = Faker.instance(random);
+        Faker faker = new Faker(random);
         //여러분의 절대경로 위치로 변경해 주세요.
         String filePath = "C:\\Users\\q\\IdeaProjects\\my-app\\KafkaProj-01\\practice\\src\\main\\resources\\pizza_append.txt";
         // 100회 반복 수행.

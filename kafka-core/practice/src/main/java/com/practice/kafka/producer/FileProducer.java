@@ -1,5 +1,8 @@
 package com.practice.kafka.producer;
 
+import com.practice.kafka.services.PropertiesService;
+import com.practice.kafka.services.PropertiesServiceImpl;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -21,10 +24,11 @@ public class FileProducer {
         //KafkaProducer configuration setting
         // null, "hello world"
 
-        Properties props  = new Properties();
-        //bootstrap.servers, key.serializer.class, value.serializer.class
-        //props.setProperty("bootstrap.servers", "192.168.56.101:9092");
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        PropertiesService configService = new PropertiesServiceImpl();
+        Properties props  = configService.LoadProperties();
+
+        String bootstrapServers = props.getProperty("bootstrap.servers");
+        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 

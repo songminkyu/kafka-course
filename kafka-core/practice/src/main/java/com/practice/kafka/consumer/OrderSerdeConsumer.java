@@ -1,6 +1,8 @@
 package com.practice.kafka.consumer;
 
 import com.practice.kafka.model.OrderModel;
+import com.practice.kafka.services.PropertiesService;
+import com.practice.kafka.services.PropertiesServiceImpl;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -107,8 +109,11 @@ public class OrderSerdeConsumer<K extends Serializable, V extends Serializable> 
     public static void main(String[] args) {
         String topicName = "order-serde-topic";
 
-        Properties props = new Properties();
-        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.56.101:9092");
+        PropertiesService configService = new PropertiesServiceImpl();
+        Properties props  = configService.LoadProperties();
+
+        String bootstrapServers = props.getProperty("bootstrap.servers");
+        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, OrderDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "order-serde-group");
