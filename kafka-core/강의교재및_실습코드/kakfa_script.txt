@@ -203,11 +203,30 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic pizza-topic-par
 1. consumer.config용 config 파일을 생성. 
 echo "exclude.internal.topics=false" > consumer_temp.config
 
-2. __consumer_offsets 토픽을 읽기
- kafka-console-consumer --consumer.config /home/min/consumer_temp.config \
+2. __consumer_offsets 토픽을 읽기 (3.0 버전 이하)
+ kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
  --bootstrap-server localhost:9092 --topic __consumer_offsets \
  --formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter"
 
+3. __consumer_offsets 토픽을 읽기 (4.0 버전 이상)
+kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
+  --bootstrap-server localhost:9092 \
+  --topic __consumer_offsets \
+  --formatter 'org.apache.kafka.tools.consumer.OffsetsMessageFormatter'
+
+4. __consumer_offsets 토픽에서 메세지 제한 읽기 (4.0 버전 이상)
+kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
+  --bootstrap-server localhost:9092 \
+  --topic __consumer_offsets \
+  --formatter 'org.apache.kafka.tools.consumer.OffsetsMessageFormatter' \
+  --from-beginning \
+  --max-messages 10
+
+5. Group Metadata 정보 조회 
+kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
+  --bootstrap-server localhost:9092 \
+  --topic __consumer_offsets \
+  --formatter 'org.apache.kafka.tools.consumer.GroupMetadataMessageFormatter'
 
 #############################################################
 #  postgresql에서 orders 테이블 생성                              #
