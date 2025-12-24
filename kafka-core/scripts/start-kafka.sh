@@ -12,8 +12,8 @@ echo "생성된 UUID: $CLUSTER_UUID"
 
 # 2. 스토리지 포맷
 echo "스토리지 포맷 중..."
-kafka-storage format -t $CLUSTER_UUID -c $CONFLUENT_HOME/etc/kafka/server.properties --standalone
+kafka-storage format -t $CLUSTER_UUID -c $CONFLUENT_HOME/etc/kafka/custom.server.properties --standalone
 
 # 3. Kafka 서버 시작
 echo "Kafka 서버 시작 중..."
-kafka-server-start $CONFLUENT_HOME/etc/kafka/server.properties
+kafka-server-start $CONFLUENT_HOME/etc/kafka/custom.server.properties
