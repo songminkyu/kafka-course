@@ -18,7 +18,7 @@ public class ConsumerWakeup {
 
     public static void main(String[] args) {
 
-        String topicName = "pizza-topic";
+        String topicName = "simple-topic"; //pizza-topic or simple-topic
 
         PropertiesService configService = new PropertiesServiceImpl();
         Properties props  = configService.LoadProperties();
@@ -28,6 +28,7 @@ public class ConsumerWakeup {
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-01");
+//        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-01-static");
 //        props.setProperty(ConsumerConfig.GROUP_INSTANCE_ID_CONFIG, "3");
 

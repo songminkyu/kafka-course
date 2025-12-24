@@ -214,7 +214,15 @@ kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
   --topic __consumer_offsets \
   --formatter 'org.apache.kafka.tools.consumer.OffsetsMessageFormatter'
 
-4. __consumer_offsets 토픽에서 메세지 제한 읽기 (4.0 버전 이상)
+4. python을 이용한 __consumer_offsets 토픽을 읽기 (4.0 버전 이상) --- 가장 추천!
+kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
+  --bootstrap-server localhost:9092 \
+  --topic __consumer_offsets \
+  --formatter 'org.apache.kafka.tools.consumer.OffsetsMessageFormatter' \
+  | python3 -u -c "import sys; [sys.stdout.write(c.replace('}', '}\n')) or sys.stdout.flush() for c in iter(lambda: sys.stdin.read(1), '')]" \
+  | jq --unbuffered '.'
+
+5. __consumer_offsets 토픽에서 메세지 제한 읽기 (4.0 버전 이상)
 kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
   --bootstrap-server localhost:9092 \
   --topic __consumer_offsets \
@@ -222,7 +230,7 @@ kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
   --from-beginning \
   --max-messages 10
 
-5. Group Metadata 정보 조회 
+6. Group Metadata 정보 조회 
 kafka-console-consumer --consumer.config /home/smk/consumer_temp.config \
   --bootstrap-server localhost:9092 \
   --topic __consumer_offsets \
