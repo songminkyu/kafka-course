@@ -28,8 +28,12 @@ public class ConsumerMTopicRebalance {
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-assign");
+//        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-mtopic");
 //        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-01-static");
 //        props.setProperty(ConsumerConfig.GROUP_INSTANCE_ID_CONFIG, "3");
+
+//        class org.apache.kafka.clients.consumer.RangeAssignor 문제가 있을경우 두번째 class org.apache.kafka.clients.consumer.CooperativeStickyAssignor 로 할당 된다.
+//        partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
         props.setProperty(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, CooperativeStickyAssignor.class.getName());
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(props);

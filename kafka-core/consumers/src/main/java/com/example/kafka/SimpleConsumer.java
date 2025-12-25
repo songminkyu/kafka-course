@@ -31,6 +31,12 @@ public class SimpleConsumer {
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-01");
 
+        //인프런 권민철 kafka-core 강의 77번 강의에 대한 내용 - 설정에 따른 heart-bit 테스트
+        //props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "simple-group");
+        //props.setProperty(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, "5000");
+        //props.setProperty(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "90000");
+        //props.setProperty(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "600000");
+
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(props);
         kafkaConsumer.subscribe(List.of(topicName));
 
