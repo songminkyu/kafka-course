@@ -28,7 +28,7 @@ curl –X GET –H “Content-Type: application/json” http://localhost:8083/co
 
 ### Spool Dir Source Connector 환경 설정 후 Connector 생성.
 
-- 아래 config 설정을 /home/min/connector_configs 디렉토리에 spooldir_source.json 파일로 저장.
+- 아래 config 설정을 /home/smk/connector_configs 디렉토리에 spooldir_source.json 파일로 저장.
 
 ```json
 {
@@ -36,10 +36,10 @@ curl –X GET –H “Content-Type: application/json” http://localhost:8083/co
   "config": {
     "tasks.max": "3",
     "connector.class": "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirCsvSourceConnector",
-    "input.path": "/home/min/spool_test_dir",
+    "input.path": "/home/smk/spool_test_dir",
     "input.file.pattern": "^.*\\.csv",
-    "error.path": "/home/min/spool_test_dir/error",
-    "finished.path": "/home/min/spool_test_dir/finished",
+    "error.path": "/home/smk/spool_test_dir/error",
+    "finished.path": "/home/smk/spool_test_dir/finished",
     "empty.poll.wait.ms": 30000,
     "halt.on.error": "false",
     "topic": "spooldir-test-topic",
