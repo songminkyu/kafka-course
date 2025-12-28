@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class FileProducer {
@@ -34,10 +36,12 @@ public class FileProducer {
 
         //KafkaProducer object creation
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        String filePath = "C:\\Users\\q\\IdeaProjects\\my-app\\KafkaProj-01\\practice\\src\\main\\resources\\pizza_sample.txt";
+        String filepath = props.getProperty("sample.path");
+        String projectPath = System.getProperty("user.dir");
+        Path samplePath = Paths.get(projectPath, filepath);
 
         //KafkaProducer객체 생성->ProducerRecords생성 -> send() 비동기 방식 전송
-        sendFileMessages(kafkaProducer, topicName, filePath);
+        sendFileMessages(kafkaProducer, topicName, samplePath.toString());
         kafkaProducer.close();
 
     }
