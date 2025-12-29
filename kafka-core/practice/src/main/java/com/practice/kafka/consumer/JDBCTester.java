@@ -1,6 +1,10 @@
 package com.practice.kafka.consumer;
 
+import com.practice.kafka.services.PropertiesService;
+import com.practice.kafka.services.PropertiesServiceImpl;
+
 import java.sql.*;
+import java.util.Properties;
 
 public class JDBCTester {
     public static void main(String[] args) {
@@ -9,10 +13,12 @@ public class JDBCTester {
         Statement st = null;
         ResultSet rs = null;
 
+        PropertiesService configService = new PropertiesServiceImpl();
+        Properties props  = configService.LoadProperties();
 
-        String url = "jdbc:postgresql://192.168.56.101:5432/postgres";
-        String user = "postgres";
-        String password = "postgres";
+        String url = props.getProperty("pg.server.url");
+        String user = props.getProperty("pg.server.user");
+        String password = props.getProperty("pg.server.password");
         try {
             conn = DriverManager.getConnection(url, user, password);
             st = conn.createStatement();

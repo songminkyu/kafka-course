@@ -1,11 +1,14 @@
 package com.practice.kafka.consumer;
 
+import com.practice.kafka.services.PropertiesService;
+import com.practice.kafka.services.PropertiesServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Properties;
 
 public class OrderDBHandler {
     public static final Logger logger = LoggerFactory.getLogger(OrderDBHandler.class.getName());
@@ -77,9 +80,14 @@ public class OrderDBHandler {
     }
 
     public static void main(String[] args) {
-        String url = "jdbc:postgresql://192.168.56.101:5432/postgres";
-        String user = "postgres";
-        String password = "postgres";
+
+        PropertiesService configService = new PropertiesServiceImpl();
+        Properties props  = configService.LoadProperties();
+
+        String url = props.getProperty("pg.server.url");
+        String user = props.getProperty("pg.server.user");
+        String password = props.getProperty("pg.server.password");
+
         OrderDBHandler orderDBHandler = new OrderDBHandler(url, user, password);
 
         LocalDateTime now = LocalDateTime.now();

@@ -170,9 +170,9 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
         props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "file-group");
         props.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
-        String url = "jdbc:postgresql://192.168.56.101:5432/postgres";
-        String user = "postgres";
-        String password = "postgres";
+        String url = props.getProperty("pg.server.url");
+        String user = props.getProperty("pg.server.user");
+        String password = props.getProperty("pg.server.password");
         OrderDBHandler orderDBHandler = new OrderDBHandler(url, user, password);
 
         FileToDBConsumer<String, String> fileToDBConsumer = new
