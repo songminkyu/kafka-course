@@ -1,14 +1,15 @@
 package com.practice.kafka.producer;
 
+import com.practice.kafka.services.PropertiesService;
+import com.practice.kafka.services.PropertiesServiceImpl;
 import net.datafaker.Faker;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 public class FileUtilAppend {
     // 피자 메뉴를 설정. getRandomValueFromList()에서 임의의 피자명을 출력하는 데 사용.
@@ -78,17 +79,23 @@ public class FileUtilAppend {
     }
 
     public static void main(String[] args) {
+
+        PropertiesService configService = new PropertiesServiceImpl();
+        Properties props  = configService.LoadProperties();
+
         FileUtilAppend fileUtilAppend = new FileUtilAppend();
         // seed값을 고정하여 Random 객체와 Faker 객체를 생성.
         long seed = 2022;
         Random random = new Random(seed);
         Faker faker = new Faker(random);
-        //여러분의 절대경로 위치로 변경해 주세요.
-        String filePath = "C:\\Users\\q\\IdeaProjects\\my-app\\KafkaProj-01\\practice\\src\\main\\resources\\pizza_append.txt";
+
+        String filepath = props.getProperty("sample.append.path");
+        String projectPath = System.getProperty("user.dir");
+        Path samplePath = Paths.get(projectPath, filepath);
         // 100회 반복 수행.
         for(int i=0; i<1000; i++) {
             //50 라인의 주문 문자열을 출력
-            fileUtilAppend.writeMessage(filePath, faker, random);
+            fileUtilAppend.writeMessage(samplePath.toString(), faker, random);
             System.out.println("###### iteration:"+i+" file write is done");
             try {
                 //주어진 기간동안 sleep

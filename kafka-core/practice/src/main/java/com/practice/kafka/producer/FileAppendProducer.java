@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class FileAppendProducer {
@@ -35,7 +37,11 @@ public class FileAppendProducer {
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
         boolean sync = false;
 
-        File file = new File("C:\\Users\\q\\IdeaProjects\\my-app\\KafkaProj-01\\practice\\src\\main\\resources\\pizza_append.txt");
+        String filepath = props.getProperty("sample.append.path");
+        String projectPath = System.getProperty("user.dir");
+        Path samplePath = Paths.get(projectPath, filepath);
+
+        File file = new File(samplePath.toString());
         EventHandler eventHandler = new FileEventHandler(kafkaProducer, topicName, sync);
         FileEventSource fileEventSource = new FileEventSource(100, file, eventHandler);
         Thread fileEventSourceThread = new Thread(fileEventSource);
