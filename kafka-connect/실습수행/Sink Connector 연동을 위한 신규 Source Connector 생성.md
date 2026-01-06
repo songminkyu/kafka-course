@@ -241,8 +241,8 @@ http POST http://localhost:8083/connectors @mysql_jdbc_source_order_items.json
 - 정상적으로 메시지가 Topic에 입력되었는지 메시지 확인
 
 ```sql
-kafkacat -b localhost:9092 -t mysql_jdbc_customers -C -J -u -q | jq '.'
-kafkacat -b localhost:9092 -t mysql_jdbc_products -C -J -u -q | jq '.'
-kafkacat -b localhost:9092 -t mysql_jdbc_orders -C -J -u -q | jq '.'
-kafkacat -b localhost:9092 -t mysql_jdbc_order_items -C -J -u -q | jq '.'
+kcat -b localhost:9092 -t mysql_jdbc_customers -C -J -u -q | jq '.'
+kcat -b localhost:9092 -t mysql_jdbc_products -C -J -u -q | jq '.'
+kcat -b localhost:9092 -t mysql_jdbc_orders -C -J -u -q | jq '.'
+kcat -b localhost:9092 -t mysql_jdbc_order_items -C -J -u -q | jq '.'
 ```
