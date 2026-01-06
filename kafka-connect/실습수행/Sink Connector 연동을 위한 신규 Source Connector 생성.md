@@ -24,10 +24,10 @@ cd ~/connector_configs
 mkdir jdbc_source_configs
 cd ~/connector_configs/jdbc_source_configs
 
-curl -o mysql_jdbc_source_customers.json https://raw.githubusercontent.com/songminkyu/kafka-course/tree/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_customers.json
-curl -o mysql_jdbc_source_order_items.json https://raw.githubusercontent.com/songminkyu/kafka-course/tree/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_order_items.json
-curl -o mysql_jdbc_source_orders.json https://raw.githubusercontent.com/songminkyu/kafka-course/tree/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_orders.json
-curl -o mysql_jdbc_source_products.json https://raw.githubusercontent.com/songminkyu/kafka-course/tree/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_products.json
+curl -o mysql_jdbc_source_customers.json https://raw.githubusercontent.com/songminkyu/kafka-course/blob/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_customers.json
+curl -o mysql_jdbc_source_order_items.json https://raw.githubusercontent.com/songminkyu/kafka-course/blob/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_order_items.json
+curl -o mysql_jdbc_source_orders.json https://raw.githubusercontent.com/songminkyu/kafka-course/blob/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_orders.json
+curl -o mysql_jdbc_source_products.json https://raw.githubusercontent.com/songminkyu/kafka-course/blob/main/kafka-connect/connector_configs/jdbc_source_configs/mysql_jdbc_source_products.json
 ```
 
 ### mysql_jdbc_source_customers.json 설정
