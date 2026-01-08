@@ -2,9 +2,9 @@
 
 ### Debezium MySQL Connector Plugin을 Connect에 설치하기
 
-- Debezium 사이트에서 Debezium mysql source connecto 1.9.7 버전 Download를 검색하여 다운로드로 local PC에 저장.
+- Debezium 사이트에서 Debezium mysql source connecto 3.4.0 버전 Download를 검색하여 다운로드로 local PC에 저장 후 우분투로 이동 시키거나 curl로 직접 우분투에 직접 저장.
 
-[Debezium Release Series 1.9](https://debezium.io/releases/1.9/)
+[Debezium Release Series 3.4.0](https://debezium.io/releases/3.4/)
 
 - 압축 파일을 실습 VM에 올리고 압축 해제
 - plug.path 디렉토리 밑에 debezium-connector-mysql 및 debezium-sink-connector-jdbc를 connector_plugins 디렉토리에 이동동
