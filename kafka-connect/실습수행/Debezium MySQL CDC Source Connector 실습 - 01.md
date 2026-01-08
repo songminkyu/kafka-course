@@ -134,6 +134,7 @@ show variables like '%expire_logs%';
 
 ### CDC Source Connector 생성해보기 - ExtractNewRecordState SMT 적용 없이 생성
 
+- config파일들은 2025-12-18 일자 배포된 debezium 3.4 버전 기반으로 작성됨
 - oc 데이터베이스의 모든 테이블들에 대한 변경 데이터를 가져오는 Source Connector 생성
 - MySQL 기동을 확인 후에 아래와 같은 설정을 mysql_cdc_oc_source_test01.json에 저장
 
@@ -143,7 +144,7 @@ show variables like '%expire_logs%';
     "config": {
         "connector.class": "io.debezium.connector.mysql.MySqlConnector",
         "tasks.max": "1",
-        "database.hostname": "192.168.56.101",
+        "database.hostname": "DB 서버 입력(ex:포트 없이 localhost or 127.0.0.1 입력)",
         "database.port": "3306",
         "database.user": "connect_dev",
         "database.password": "connect_dev",
@@ -151,8 +152,9 @@ show variables like '%expire_logs%';
         "database.server.name": "test01",
         "database.include.list": "oc",
         "database.allowPublicKeyRetrieval": "true",
-        "database.history.kafka.bootstrap.servers": "192.168.56.101:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "kafka broker 서버 입력(ex:localhost:9092)",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter"
     }
