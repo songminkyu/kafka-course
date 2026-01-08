@@ -7,7 +7,7 @@
 [Debezium Release Series 3.4.0](https://debezium.io/releases/3.4/)
 
 - 압축 파일을 실습 VM에 올리고 압축 해제
-- plug.path 디렉토리 밑에 debezium-connector-mysql 및 debezium-sink-connector-jdbc를 connector_plugins 디렉토리에 이동동
+- plug.path 디렉토리 밑에 debezium-connector-mysql 및 debezium-sink-connector-jdbc를 connector_plugins 디렉토리에 이동
 
 ```bash
 curl -O https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/3.4.0.Final/debezium-connector-mysql-3.4.0.Final-plugin.tar.gz
