@@ -302,9 +302,10 @@ register_connector mysql_cdc_oc_sink_test01.json.json
         "database.server.id": "10001",
         "database.server.name": "mysql01",
         "database.include.list": "oc",
-        "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items", 
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "topic.prefix": "mysql01",
+        "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
 
