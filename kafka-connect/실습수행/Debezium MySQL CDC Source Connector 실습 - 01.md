@@ -7,14 +7,17 @@
 [Debezium Release Series 1.9](https://debezium.io/releases/1.9/)
 
 - 압축 파일을 실습 VM에 올리고 압축 해제
-- plug.path 디렉토리 밑에 cdc_source_connector로 서브 디렉토리 생성하고 압축 해제한 jar 파일을 해당 디렉토리로 복사
+- plug.path 디렉토리 밑에 debezium-connector-mysql 및 debezium-sink-connector-jdbc를 connector_plugins 디렉토리에 이동동
 
 ```bash
-tar -xvf debezium-connector-mysql-1.9.7.Final-plugin.tar.gz
-cd ~/connector_plugins
-mkdir cdc_source_connector
-cd ~/debezium-connector-mysql
-cp *.jar ../connector_plugins/cdc_source_connector 
+curl -O https://repo1.maven.org/maven2/io/debezium/debezium-connector-mysql/3.4.0.Final/debezium-connector-mysql-3.4.0.Final-plugin.tar.gz
+tar -xvf debezium-connector-mysql-3.4.0.Final-plugin.tar.gz
+mv debezium-connector-mysql connector_plugins
+
+curl -O https://repo1.maven.org/maven2/io/debezium/debezium-connector-jdbc/3.4.0.Final/debezium-connector-jdbc-3.4.0.Final-plugin.tar.gz
+tar -xvf debezium-connector-jdbc-3.4.0.Final-plugin.tar.gz
+mv debezium-connector-jdbc debezium-sink-connector-jdbc
+mv debezium-sink-connector-jdbc connector_plugins
 ```
 
 - Connect를 재 기동하고 아래 명령어로 debezium connector plugin이 로딩되었는지 확인
