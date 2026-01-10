@@ -135,6 +135,60 @@ show variables like '%expire_logs%';
 
 - binlog가 쌓이는 디렉토리 확인. os에서 root 사용자로 로그인 한뒤 /var/lib/mysql 디렉토리에서 binlog 확인
 
+README 파일에 바로 복사해서 사용하실 수 있도록 깔끔하게 정리해 드립니다. 가독성을 위해 버전별 변경점을 표로 요약하고, 설정 예시를 명확히 구분했습니다.
+
+---
+
+## ⚠️ Debezium 버전별 설정 유의사항
+
+Debezium 2.0 이상 버전부터는 설정 파라미터 명칭이 변경되었습니다. 현재 제공되는 소스 커넥터 설정 파일은 **Debezium 3.4 기준**으로 작성되었으니, 하위 버전을 사용하실 경우 아래 내용을 참고하여 수정하시기 바랍니다.
+
+### 1. 주요 변경 파라미터 요약
+
+| 구분 | Debezium 2.0 미만 (1.x) | Debezium 2.0 이상 (2.x, 3.x) |
+| --- | --- | --- |
+| **Topic 식별자** | `database.server.name` | **`topic.prefix`** |
+| **History 서버** | `database.history.kafka.bootstrap.servers` | **`schema.history.internal.kafka.bootstrap.servers`** |
+| **History 토픽** | `database.history.kafka.topic` | **`schema.history.internal.kafka.topic`** |
+
+---
+
+### 2. 버전별 설정 예시
+
+#### [Debezium 2.0 이상 (현재 프로젝트 기준)]
+
+```json
+{
+    "name": "mysql-connector",
+    "config": {
+        "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+        ...
+    }
+}
+
+```
+
+#### [Debezium 2.0 미만 (Legacy)]
+
+```json
+{
+    "name": "mysql-connector",
+    "config": {
+        "database.server.name": "test01",
+        "database.history.kafka.bootstrap.servers": "localhost:9092",
+        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        ...
+    }
+}
+
+```
+
+> **Note:** 2.0 버전부터 `database.history` 관련 설정이 `schema.history.internal`로 변경됨. 설정이 일치하지 않을 경우 커넥터가 정상적으로 동작하지 않으니 주의해야함.
+
+---
+
 ### CDC Source Connector 생성해보기 - ExtractNewRecordState SMT 적용 없이 생성
 
 - config파일들은 2025-12-18 일자 배포된 debezium 3.4 버전 기반으로 작성됨
@@ -624,9 +678,10 @@ CREATE TABLE orders_test_new (
         "database.server.id": "10013",
         "database.server.name": "mysql-02",
         "database.include.list": "oc",
+        "topic.prefix": "mysql-02",
         "table.include.list": "oc.customers, oc.orders",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-02.oc",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-02.oc",
 
         "database.allowPublicKeyRetrieval": "true",
 
@@ -660,8 +715,9 @@ CREATE TABLE orders_test_new (
         "database.server.name": "mysql-01-test",
         "database.include.list": "oc",
         "table.include.list": "oc.customers",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+		"topic.prefix": "mysql-01-test",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "database.allowPublicKeyRetrieval": "true",
         "database.connectionTimeZone": "Asia/Seoul",
@@ -779,8 +835,9 @@ select count(*) from oc.customers_batch;
         "database.server.name": "mysql02-batch",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+        "topic.prefix": "mysql02-batch",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "database.allowPublicKeyRetrieval": "true",
         "database.connectionTimeZone": "Asia/Seoul",
@@ -834,8 +891,9 @@ select max(customer_id) from oc.customers_batch;
         "database.server.name": "mysql04-chonly",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+		"topic.prefix": "mysql04-chonly",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "snapshot.mode": "schema_only",
 
