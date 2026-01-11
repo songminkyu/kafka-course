@@ -1,6 +1,8 @@
 package com.example.kafkaproducer.config;
 
 import com.example.kafkaproducer.util.PurchaseLogOneProductSerializer;
+import com.example.kafkaproducer.util.PurchaseLogSerializer;
+import com.example.kafkaproducer.util.WatchingAdLogSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringSerializer;
