@@ -1,1 +1,5 @@
-/usr/bin/http POST http://localhost:8083/connectors @/home/min/connector_configs/$1
+# 스크립트 파일이 있는 위치를 동적으로 파악
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# 파악된 위치를 기반으로 실행
+/usr/bin/http POST http://localhost:8083/connectors @"$SCRIPT_DIR/connector_configs/$1"
