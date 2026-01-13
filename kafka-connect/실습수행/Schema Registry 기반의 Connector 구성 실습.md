@@ -16,7 +16,7 @@ $CONFLUENT_HOME/bin/schema-registry-start $CONFLUENT_HOME/etc/schema-registry/sc
 - kafka-avro-console-producer를 이용하여 avro 메시지 보내기
 
 ```bash
-kafka-avro-console-producer  --broker-list localhost:9092 --topic avro_test \
+kafka-avro-console-producer  --bootstrap-server localhost:9092 --topic avro_test \
 --property value.schema='{
 	"type": "record", 
 	"name": "customer_short",
