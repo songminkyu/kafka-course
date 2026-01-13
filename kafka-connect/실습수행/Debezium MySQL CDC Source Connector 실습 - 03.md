@@ -124,7 +124,7 @@ full_name varchar(255) NOT NULL
         "connection.url": "jdbc:mysql://localhost:3306/oc_sink",
         "connection.user": "connect_dev",
         "connection.password": "connect_dev",
-        "table.name.format": "oc_sink.customers_redef_sink",
+        "table.name.format": "customers_redef_sink",
         "insert.mode": "upsert",
         "pk.fields": "customer_id",
         "pk.mode": "record_key",
