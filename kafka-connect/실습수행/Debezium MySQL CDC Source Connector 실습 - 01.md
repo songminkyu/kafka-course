@@ -206,7 +206,6 @@ Debezium 2.0 이상 버전부터는 설정 파라미터 명칭이 변경되었�
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10000",
-        "database.server.name": "test01",
         "database.include.list": "oc",
         "database.allowPublicKeyRetrieval": "true",
         "topic.prefix": "test01",
@@ -354,7 +353,6 @@ register_connector mysql_cdc_oc_sink_test01.json.json
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10001",
-        "database.server.name": "mysql01",
         "database.include.list": "oc",
         "topic.prefix": "mysql01",
         "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items",
@@ -661,7 +659,7 @@ CREATE TABLE orders_test_new (
 
 ### Topic 명의 dot(.)을 dash로 변경하기
 
-- 기본적으로 debezium은 topic명을 database.server.name+ “.” + database.include.list+”.” + table.include_list를 조합하여 만듬.  기존 생성된 토픽명이 dash를 기준으로 되어 있거나 dot을 dash로 변경하기 위해 RegexRouter SMT 적용.
+- 기본적으로 debezium은 topic명을 topic.prefix+ “.” + database.include.list+”.” + table.include_list를 조합하여 만듬.  기존 생성된 토픽명이 dash를 기준으로 되어 있거나 dot을 dash로 변경하기 위해 RegexRouter SMT 적용.
 - 기존 [database.server.name](http://database.server.name) = mysql-02, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysql-02.oc.customers로 생성됨. 이를 mysql-02-oc-customers 로 토픽명 변경
 - 정규 표현식의 dot(.)는 특수문자이므로 이를 단순 문자로 인식하기 위해 \ 추가. json에서 \을 인식시키기 위해 \\ 로 변경
 
@@ -676,7 +674,6 @@ CREATE TABLE orders_test_new (
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10013",
-        "database.server.name": "mysql-02",
         "database.include.list": "oc",
         "topic.prefix": "mysql-02",
         "table.include.list": "oc.customers, oc.orders",
@@ -712,7 +709,6 @@ CREATE TABLE orders_test_new (
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10022",
-        "database.server.name": "mysql-01-test",
         "database.include.list": "oc",
         "table.include.list": "oc.customers",
 		"topic.prefix": "mysql-01-test",
@@ -832,7 +828,6 @@ select count(*) from oc.customers_batch;
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10024",
-        "database.server.name": "mysql02-batch",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
         "topic.prefix": "mysql02-batch",
@@ -888,7 +883,6 @@ select max(customer_id) from oc.customers_batch;
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10027",
-        "database.server.name": "mysql04-chonly",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
 		"topic.prefix": "mysql04-chonly",
