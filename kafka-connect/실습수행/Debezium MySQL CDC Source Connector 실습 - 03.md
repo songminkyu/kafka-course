@@ -8,7 +8,7 @@
 kafka-topics --bootstrap-server localhost:9092 --create --topic mysqlrename-oc-customers --partitions 3
 ```
 
-- 기존 [database.server.name](http://database.server.name) = mysqlrename, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysqlrename.oc.customers로 생성됨. 이를 mysqlren-oc-customers 로 토픽명 변경
+- 기존 [topic.prefix](http://topic.prefix) = mysqlrename, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysqlrename.oc.customers로 생성됨. 이를 mysqlren-oc-customers 로 토픽명 변경
 - 정규 표현식의 dot(.)는 특수문자이므로 이를 단순 문자로 인식하기 위해 \ 추가. json에서 \을 인식시키기 위해 \\ 로 변경
 - 아래 설정을 mysql_cdc_oc_source_rename_topic.json 파일명으로 저장.
 
@@ -23,11 +23,11 @@ kafka-topics --bootstrap-server localhost:9092 --create --topic mysqlrename-oc-c
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "12001",
-        "database.server.name": "mysqlrename",
         "database.include.list": "oc",
         "table.include.list": "oc.customers",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
 
         "database.allowPublicKeyRetrieval": "true",
 
@@ -92,11 +92,13 @@ full_name varchar(255) NOT NULL
         "database.allowPublicKeyRetrieval": "true",
 
         "database.server.id": "12002",
-        "database.server.name": "mysqlredef01",
         "database.include.list": "oc",
-        "table.include.list": "oc.customers_redef", 
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "table.include.list": "oc.customers_redef",
+
+        "topic.prefix": "mysqlredef01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
 
@@ -455,13 +457,14 @@ call INSERT_CUSTOMERS_BATCH(0, 1000);
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "13000",
-        "database.server.name": "mysqlsonly",
+        "database.allowPublicKeyRetrieval": "true",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
-        "database.allowPublicKeyRetrieval": "true",
 
+        "topic.prefix": "mysqlsonly",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+       
         "snapshot.mode": "schema_only",
 
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
