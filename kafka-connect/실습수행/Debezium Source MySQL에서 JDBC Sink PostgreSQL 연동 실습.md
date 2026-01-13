@@ -239,11 +239,11 @@ kafka-topics --bootstrap-server localhost:9092 --create --topic mysqlavro-ops-bo
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "30000",
-        "database.server.name": "mysqlavro",
         "database.include.list": "ops",
+		"topic.prefix": "mysqlavro",
         "table.include.list": "ops.customers, ops.products, ops.orders, ops.order_items, ops.boards",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
 
         "time.precision.mode": "connect",
         "database.connectionTimezone": "Asia/Seoul",
@@ -253,7 +253,6 @@ kafka-topics --bootstrap-server localhost:9092 --create --topic mysqlavro-ops-bo
         "key.converter.schema.registry.url": "http://localhost:8081",
         "value.converter.schema.registry.url": "http://localhost:8081",
 
-        
         "transforms": "rename_topic, unwrap",
         "transforms.rename_topic.type": "org.apache.kafka.connect.transforms.RegexRouter",
         "transforms.rename_topic.regex": "(.*)\\.(.*)\\.(.*)",
