@@ -77,13 +77,15 @@ truncate table oc_sink.orders_datetime_tab_sink;
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "20000",
-        "database.server.name": "mysqlavro",
+        "topic.prefix": "mysqlavro", 
+        
         "database.include.list": "oc",
         "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items, oc.orders_datetime_tab",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
-		"database.allowPublicKeyRetrieval": "true",
-
+       
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+        
+        "database.allowPublicKeyRetrieval": "true",
         "time.precision.mode": "connect",
         "database.connectionTimezone": "Asia/Seoul",
 
@@ -178,7 +180,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 - Schema가 없는 데이터를 토픽에서 읽어서  Schema Registry를 통해서 스키마 정보 추출 후 JDBC를 통해 Target DB에 입력할 수 있도록 새로운 Connector 생성
 - 아래 설정을 mysql_jdbc_oc_sink_customers_avro_01.json에 저장
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_customers_avro_01",
     "config": {
@@ -205,7 +207,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 
 - 아래 설정을 mysql_jdbc_oc_sink_products_avro_01.json에 저장
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_products_avro_01",
     "config": {
@@ -232,7 +234,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 
 - 아래 설정을 mysql_jdbc_oc_sink_orders_avro_01.json에 저장
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_orders_avro_01",
     "config": {
@@ -267,7 +269,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 
 - 아래 설정을 mysql_jdbc_oc_sink_order_items_avro_01.json에 저장
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_order_items_avro_01",
     "config": {
@@ -294,7 +296,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 
 - 아래 설정을 mysql_jdbc_oc_sink_orders_datetime_tab_avro_01.json에 저장
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_orders_datetime_tab_avro_01",
     "config": {
@@ -321,7 +323,7 @@ http GET http://localhost:8081/config/mysqlavro.oc.customers-value
 
 - 위에서 설정한 Connector를 모두 생성.
 
-```sql
+```shell
 register_connector mysql_jdbc_oc_sink_customers_avro_01.json
 register_connector mysql_jdbc_oc_sink_products_avro_01.json
 register_connector mysql_jdbc_oc_sink_orders_avro_01.json
@@ -363,7 +365,7 @@ full_name varchar(255) NOT NULL
 
 - Schema Registry 기반의 Source Connector 생성.  mysql_cdc_oc_source_avro_redef_01.json으로 아래 설정 저장.
 
-```sql
+```json
 {
     "name": "mysql_cdc_oc_source_avro_redef_01",
     "config": {
@@ -374,13 +376,14 @@ full_name varchar(255) NOT NULL
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "20001",
-        "database.server.name": "mysqlavroredef01",
-        "database.include.list": "oc",
+		"database.include.list": "oc",
+		"database.allowPublicKeyRetrieval": "true",
+		"topic.prefix": "mysqlavroredef01",
+        
         "table.include.list": "oc.customers_redef_sr",
-        "database.allowPublicKeyRetrieval": "true",
-
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
 
         "time.precision.mode": "connect",
         "database.connectionTimezone": "Asia/Seoul",
