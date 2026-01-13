@@ -8,21 +8,21 @@
 
 - MySQL JDBC Driver 로컬 PC에 Download. 오라클 사이트나 maven에서 jar download
 
-[https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.](https://mvnrepository.com/artifact/mysql/mysql-connector-java/8.0.30)29
+[mysql-connector](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/9.5.0)
 
 - 로컬 PC에 다운로드 받은 JDBC Connector와 MySQL JDBC Driver를 실습 vm로 옮김
 - upload된 JDBC Connector의 압축을 풀고 lib 디렉토리를 jdbc_connector로 이름 변경
 
 ```sql
-unzip confluentinc-kafka-connect-jdbc-10.6.0.zip
-cd confluentinc-kafka-connect-jdbc-10.6.0
+unzip confluentinc-kafka-connect-jdbc-10.9.2.zip
+cd confluentinc-kafka-connect-jdbc-10.9.2
 mv lib jdbc_connector
 ```
 
 - jdbc_connector 디렉토리를 plugin.path 디렉토리로 이동
 
 ```sql
-# ~/confluentinc-kafka-connect-jdbc-10.6.0 디렉토리에 아래 수행.
+# ~/confluentinc-kafka-connect-jdbc-10.9.2 디렉토리에 아래 수행.
 cp -r jdbc_connector ~/connector_plugins
 ```
 
