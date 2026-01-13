@@ -131,7 +131,8 @@ insert into orders_datetime_tab values (1, now(), now(), 1, 'delivered', 1);
 show_topic_messages avro mysqlavro.oc.customers;
 ```
 
-```avro
+- customers 토픽에서 메시지 결과 내용 (avro 메세지)
+```json
 {
   "customer_id": 1
 }
