@@ -118,13 +118,13 @@ CREATE TABLE orders_datetime_tab_sink (
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.allowPublicKeyRetrieval": "true",
-
         "database.server.id": "10020",
-        "database.server.name": "test01",
         "database.include.list": "oc",
+
         "table.include.list": "oc.orders_datetime_tab",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
      
@@ -196,16 +196,16 @@ delete_connector mysql_jdbc_oc_sink_datetime_tab_01
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.allowPublicKeyRetrieval": "true",
-
         "database.server.id": "10021",
-        "database.server.name": "test02",
         "database.include.list": "oc",
         "table.include.list": "oc.orders_datetime_tab",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+
+		"topic.prefix": "test02",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        
         "time.precision.mode": "connect",
 
         "transforms": "unwrap",
@@ -309,13 +309,14 @@ CREATE TABLE orders_timestamp_tab_sink (
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.allowPublicKeyRetrieval": "true",
-
         "database.server.id": "10022",
-        "database.server.name": "test01",
         "database.include.list": "oc",
+
         "table.include.list": "oc.orders_timestamp_tab",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
+
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         
@@ -548,13 +549,12 @@ call CONNECT_DML_TEST(0, 1000, 100, 100);
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.allowPublicKeyRetrieval": "true",
-
         "database.server.id": "12000",
-        "database.server.name": "mysql02",
         "database.include.list": "oc",
-        "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items, oc.orders_datetime_tab", 
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql.oc",
+        "table.include.list": "oc.customers, oc.products, oc.orders, oc.order_items, oc.orders_datetime_tab",
+        "topic.prefix": "mysql02",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql.oc",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
 
@@ -731,8 +731,8 @@ kafka-console-consumer --consumer.config /home/min/consumer_temp.config  --boots
 
 ### Topic 명의 dot(.)을 dash로 변경하기
 
-- 기본적으로 debezium은 topic명을 database.server.name+ “.” + database.include.list+”.” + table.include_list를 조합하여 만듬.  기존 생성된 토픽명이 dash를 기준으로 되어 있거나 dot을 dash로 변경하기 위해 RegexRouter SMT 적용.
-- 기존 [database.server.name](http://database.server.name) = mysql-02, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysql-02.oc.customers로 생성됨. 이를 mysql-02-oc-customers 로 토픽명 변경
+- 기본적으로 debezium은 topic명을 topic.prefix+ “.” + database.include.list+”.” + table.include_list를 조합하여 만듬.  기존 생성된 토픽명이 dash를 기준으로 되어 있거나 dot을 dash로 변경하기 위해 RegexRouter SMT 적용.
+- 기존 [topic.prefix](http://topic.prefix) = mysql-02, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysql-02.oc.customers로 생성됨. 이를 mysql-02-oc-customers 로 토픽명 변경
 - 정규 표현식의 dot(.)는 특수문자이므로 이를 단순 문자로 인식하기 위해 \ 추가. json에서 \을 인식시키기 위해 \\ 로 변경
 
 ```sql
@@ -746,11 +746,12 @@ kafka-console-consumer --consumer.config /home/min/consumer_temp.config  --boots
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10013",
-        "database.server.name": "mysql-02",
         "database.include.list": "oc",
         "table.include.list": "oc.customers, oc.orders",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-02.oc",
+
+		"topic.prefix": "mysql-02",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-02.oc",
 
         "database.allowPublicKeyRetrieval": "true",
 
@@ -781,11 +782,12 @@ kafka-console-consumer --consumer.config /home/min/consumer_temp.config  --boots
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10022",
-        "database.server.name": "mysql-01-test",
         "database.include.list": "oc",
         "table.include.list": "oc.customers",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+
+        "topic.prefix": "mysql-01-test",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "database.allowPublicKeyRetrieval": "true",
         "database.connectionTimeZone": "Asia/Seoul",
@@ -900,11 +902,12 @@ select count(*) from oc.customers_batch;
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10024",
-        "database.server.name": "mysql02-batch",
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+
+		"topic.prefix": "mysql02-batch",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "database.allowPublicKeyRetrieval": "true",
         "database.connectionTimeZone": "Asia/Seoul",
@@ -955,11 +958,13 @@ select max(customer_id) from oc.customers_batch;
         "database.user": "connect_dev",
         "database.password": "connect_dev",
         "database.server.id": "10027",
-        "database.server.name": "mysql04-chonly",
+        
         "database.include.list": "oc",
         "table.include.list": "oc.customers_batch",
-        "database.history.kafka.bootstrap.servers": "localhost:9092",
-        "database.history.kafka.topic": "schema-changes.mysql-01.oc",
+
+	    "topic.prefix": "test01",
+        "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
+        "schema.history.internal.kafka.topic": "schema-changes.mysql-01.oc",
 
         "snapshot.mode": "schema_only",
 
