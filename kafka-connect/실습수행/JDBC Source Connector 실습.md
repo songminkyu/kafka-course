@@ -6,30 +6,28 @@
 
 [JDBC Connector (Source and Sink)](https://www.confluent.io/hub/confluentinc/kafka-connect-jdbc)
 
-- MySQL JDBC Driver 로컬 PC에 Download. 오라클 사이트나 maven에서 jar download
+- MySQL JDBC Driver 로컬 PC에 Download. 오라클 사이트나 maven에서 jar download 또는 curl 수행 하여 download
 
 [mysql-connector](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/9.5.0)
 
 - 로컬 PC에 다운로드 받은 JDBC Connector와 MySQL JDBC Driver를 실습 vm로 옮김
 - upload된 JDBC Connector의 압축을 풀고 lib 디렉토리를 jdbc_connector로 이름 변경
-
+- 위 2가지 내용 외에는 직접 실습 위치(ubuntu) curl 이용 하여 환경 구성 해도 됨.
+  
 ```sql
+curl -O https://hub-downloads.confluent.io/api/plugins/confluentinc/kafka-connect-jdbc/versions/10.9.2/confluentinc-kafka-connect-jdbc-10.9.2.zip
 unzip confluentinc-kafka-connect-jdbc-10.9.2.zip
 cd confluentinc-kafka-connect-jdbc-10.9.2
-mv lib jdbc_connector
+cd lib
+curl -O https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/9.5.0/mysql-connector-j-9.5.0.jar
+mv lib confluentinc-kafka-connect-jdbc
 ```
 
-- jdbc_connector 디렉토리를 plugin.path 디렉토리로 이동
+- confluentinc-kafka-connect-jdbc 디렉토리를 plugin.path 디렉토리로 이동
 
 ```sql
 # ~/confluentinc-kafka-connect-jdbc-10.9.2 디렉토리에 아래 수행.
-cp -r jdbc_connector ~/connector_plugins
-```
-
-- mysql jdbc driver를 plugin.path 디렉토리로 이동
-
-```sql
-cd ~/mysql-connector-java-8.0.29.jar ~/connector_plugins
+cp -r confluentinc-kafka-connect-jdbc ~/connector_plugins
 ```
 
 - Connect를 재기동하고 REST API로 해당 plugin class가 제대로 Connect에 로딩 되었는지 확인
