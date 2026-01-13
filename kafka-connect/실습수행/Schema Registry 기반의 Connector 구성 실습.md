@@ -131,6 +131,25 @@ insert into orders_datetime_tab values (1, now(), now(), 1, 'delivered', 1);
 show_topic_messages avro mysqlavro.oc.customers;
 ```
 
+```avro
+{
+  "customer_id": 1
+}
+{
+  "customer_id": 1,
+  "email_address": "testaddress_01@testdomain",
+  "full_name": "testuser_01"
+}
+{
+  "customer_id": 2
+}
+{
+  "customer_id": 2,
+  "email_address": "testaddress_02@testdomain",
+  "full_name": "testuser_02"
+}
+```
+
 ### Schema Registry에 등록된 정보 확인
 
 - 내부 토픽 _schemas 조회
