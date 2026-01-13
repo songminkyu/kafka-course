@@ -660,7 +660,7 @@ CREATE TABLE orders_test_new (
 ### Topic 명의 dot(.)을 dash로 변경하기
 
 - 기본적으로 debezium은 topic명을 topic.prefix+ “.” + database.include.list+”.” + table.include_list를 조합하여 만듬.  기존 생성된 토픽명이 dash를 기준으로 되어 있거나 dot을 dash로 변경하기 위해 RegexRouter SMT 적용.
-- 기존 [database.server.name](http://database.server.name) = mysql-02, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysql-02.oc.customers로 생성됨. 이를 mysql-02-oc-customers 로 토픽명 변경
+- 기존 [topic.prefix](http://topic.prefix) = mysql-02, database.include.list=oc, table.include.list=oc.customers 일 경우 topic명은 mysql-02.oc.customers로 생성됨. 이를 mysql-02-oc-customers 로 토픽명 변경
 - 정규 표현식의 dot(.)는 특수문자이므로 이를 단순 문자로 인식하기 위해 \ 추가. json에서 \을 인식시키기 위해 \\ 로 변경
 
 ```sql
