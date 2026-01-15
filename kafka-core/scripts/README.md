@@ -1,10 +1,10 @@
 kafka 실습을 하기위해 카프카 브로커를 먼저 띄어야하기때문에 아래와 같이 파일을 리눅스에 위치한다.
 
-## single broker 작업 시
+### single broker 작업 시
 1. confluent/etc/kafka 에 "custom.server.properties" 파일을 복사 붙혀 놓는다.
 2. start-kafka.sh를 /home/계정/ 바로 밑에 복사 붙혀 놓는다.
 
-## multi broker 작업 시
+### multi broker 작업 시
 
 아래 3개 설정 파일 수정 해줘야함
 
