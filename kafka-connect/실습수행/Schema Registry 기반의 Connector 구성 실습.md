@@ -422,7 +422,7 @@ full_name varchar(255) NOT NULL
 
 - Schema Registry 기반의 JDBC Sink Connector 생성.  mysql_jdbc_oc_sink_customers_redef_avro_01.json으로 아래 설정 저장.
 
-```sql
+```json
 {
     "name": "mysql_jdbc_oc_sink_customers_redef_01",
     "config": {
@@ -449,7 +449,7 @@ full_name varchar(255) NOT NULL
 
 - Source 와 Sink Connector 생성 등록 및 토픽 메시지 확인.
 
-```sql
+```shell
 register_connector mysql_cdc_oc_source_avro_redef_01.json
 register_connector mysql_jdbc_oc_sink_customers_redef_avro_01.json
 
@@ -458,7 +458,7 @@ show_topic_messages avro mysqlavroredef01.oc.customers_redef_sr
 
 - Schema Registry에 등록된 global compatibility와 subject 확인
 
-```sql
+```shell
 http http://localhost:8081/config
 
 http http://localhost:8081/schemas
@@ -555,7 +555,7 @@ values (8, 'test', 'test', 30, 1000.999);
 
 - 해당 토픽 subject의 스키마 호환성 변경.
 
-```sql
+```shell
 curl -X PUT -H "Content-Type: application/vnd.schemaregistry.v1+json" --data '{"compatibility": "NONE"}' http://localhost:8081/config/mysqlavroredef01.oc.customers_redef_sr-value
 ```
 
